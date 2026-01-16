@@ -3,6 +3,7 @@ package com.yellowai.chatbot.security;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -20,23 +21,14 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
 		http
-				// VERY IMPORTANT
-				.cors(cors -> {
-				})
+				// THIS NOW USES CorsConfig.java
+				.cors(Customizer.withDefaults())
 
 				.csrf(csrf -> csrf.disable()).formLogin(form -> form.disable()).httpBasic(basic -> basic.disable())
 
-				.authorizeHttpRequests(auth -> auth
-						// allow browser preflight requests
-						.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+				.authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+						.requestMatchers("/auth/**").permitAll().anyRequest().authenticated())
 
-						// auth endpoints open
-						.requestMatchers("/auth/**").permitAll()
-
-						// everything else needs JWT
-						.anyRequest().authenticated())
-
-				// JWT filter
 				.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
 		return http.build();
