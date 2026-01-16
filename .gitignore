@@ -22,7 +22,6 @@ chatbot-frontend/.env.*
 .idea/
 
 # ===== SECRETS (VERY IMPORTANT) =====
-**/application.properties
 **/application.yml
 **/application-prod.yml
 **/.env
