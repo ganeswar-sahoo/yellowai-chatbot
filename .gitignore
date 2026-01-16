@@ -1,0 +1,28 @@
+# ===== GENERAL =====
+.DS_Store
+Thumbs.db
+*.log
+
+# ===== BACKEND (SPRING BOOT) =====
+chatbot-backend/**/target/
+chatbot-backend/**/.classpath
+chatbot-backend/**/.project
+chatbot-backend/**/.settings/
+chatbot-backend/**/.idea/
+chatbot-backend/**/*.iml
+
+# ===== FRONTEND (REACT / VITE) =====
+chatbot-frontend/node_modules/
+chatbot-frontend/dist/
+chatbot-frontend/.env
+chatbot-frontend/.env.*
+
+# ===== IDE =====
+.vscode/
+.idea/
+
+# ===== SECRETS (VERY IMPORTANT) =====
+**/application.properties
+**/application.yml
+**/application-prod.yml
+**/.env
